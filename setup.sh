@@ -29,15 +29,7 @@ pkg install termux-api -y
 echo -e "\033[31m\033[1m        INSTALLATION COMPLETED \033[32m[\033[36m✓\033[32m]" | pv -qL 12
 echo -e "\033[33m\033[1m]────────────────────────────────────────────["
 termux-setup-storage
-cd $HOME/TermuX-Phantom
 cp login.sh $PREFIX/etc
-chmod +x login.sh delete.sh setup.sh sound_effect.py banner.sh update.sh
-mkdir -p $HOME/TermuX-Phantom/Song 
-mv Access-Granted.mp3 Jarvis2.mp3 JARVIS.mp3 sound_effect.py $HOME/TermuX-Phantom/Song
-rm 1
-mkdir -p $HOME/TermuX-Phantom/NETWORK
-mv network.py $HOME/TermuX-Phantom/NETWORK
-
 # Prompt user for update
 read -p "Do you want to update the repository now? (y/n): " choice
 if [ "$choice" = "y" ]; then
