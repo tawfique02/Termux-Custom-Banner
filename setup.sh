@@ -24,8 +24,19 @@ apt install mpv -y
 pip install lolcat 
 pip install random 
 pip install requests 
+pip install mechanize 
+pip2 install bs4
+pip2 install requests
+pkg install php -y
 pkg install python2 -y 
 pkg install termux-api -y 
+pkg install python3 -y
+pkg install tree -y
+pkg install nmap -y
+pkg install git -y
+pkg install curl -y
+pkg install wget -y
+
 echo -e "\033[31m\033[1m        INSTALLATION COMPLETED \033[32m[\033[36m✓\033[32m]" | pv -qL 12
 echo -e "\033[33m\033[1m]────────────────────────────────────────────["
 termux-setup-storage
