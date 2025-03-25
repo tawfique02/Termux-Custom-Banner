@@ -1,118 +1,81 @@
-#!/usr/bin/bash
-# Use this script for ethical hacking and educational purposes only.
-#Don,t try to copy my script. It,s unethical.
-# Load banner
+
+#!/bin/bash
+# Only use it for ethical hacking and educational purposes.
+
+# Call the banner.sh script if it exists
 bash banner.sh
 echo
 
-# Admin credentials (stored in plain text)
-admin_user="admin"
-admin_pass="admin"
-
-# Secret credentials to protect against unauthorized changes
-secret_user="secret_admin"
-secret_pass="secret_password"
-
-# User credentials file (stored in Termux home directory)
-cred_file="$HOME/.user_credentials"
-
-# Check if credentials exist; if not, prompt user to set them
-if [[ ! -f "$cred_file" ]]; then
-    echo -e "\e[1;33m🚀 First-Time Setup! Create Your Username & Password:\e[0m"
-    read -p $'\e[32mEnter New Username: \e[0m' new_user
-    read -s -p $'\e[32mEnter New Password: \e[0m' new_pass
-    echo "$new_user:$new_pass" > "$cred_file"
-    echo -e "\n\e[1;32m✔ Your account has been created successfully! Please restart Termux.\e[0m"
-    exit
-fi
-
-# Get Shell Name
+# User input for username and password
+read -p $'\e[1;32m  Enter \033[33mUsername \033[37mfor \033[32mLogin:\e[0m ' username                
+read -sp $'\e[1;32m  Enter \033[33mPassword \033[37mfor \033[32mLogin:\e[0m ' password 
+echo
+echo
 read -p $'\033[1m\033[32m  Your \033[0mShell \033[38;5;209mName\033[31m: \033[33m\033[1m ' names
-cd
-cd usr/etc
 
-# Backup existing bash.bashrc
-cp bash.bashrc bash.bashrc.bak
+# Remove bash.bashrc if it exists (this step is no longer needed for the rest of the script)
+cd /usr/etc || exit
+rm -f bash.bashrc  # This removes the bash.bashrc file
 
-# Replace with new login system
-cat <<LOGIN > bash.bashrc
-trap '' 2
-clear
-echo -e "\e[1;32m
-██████╗ ██╗   ██╗████████╗███████╗██████╗ 
-██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗
-██████╔╝██║   ██║   ██║   █████╗  ██████╔╝
-██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗
-██║     ╚██████╔╝   ██║   ███████╗██║  ██║
-╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
-\e[0m"
+# Prompt user for login credentials
+read -p $'       \e[33m\033[1m\033[33m[\033[31m+\033[33m] \033[37mINPUT \033[33mUSERNAME FOR LOGIN:\033[32m ' user
+read -sp $'       \e[32m\033[1m\033[33m[\033[31m+\033[33m] \033[37mINPUT \033[33mPASSWORD FOR LOGIN:\033[33m ' pass                                                
 
-echo -e "\e[33m────────── LOGIN TO CONTINUE ──────────\e[0m"
-echo
-
-read -p $'\e[33m\033[1m[+]\033[37m Enter Username: \033[32m' user
-read -s -p $'\e[33m\033[1m[+]\033[37m Enter Password: \033[33m' pass
-echo
-
-# Admin Login Check
-if [[ "\$user" == "$admin_user" && "\$pass" == "$admin_pass" ]]; then
-    clear
-    echo -e "\e[1;32m✔ Admin Access Granted! Welcome, Admin(TE).\e[0m"
-    while true; do
-        echo -e "\n\e[36mAdmin Menu:\e[0m"
-        echo -e "\e[33m1. View User Credentials\e[0m"
-        echo -e "\e[33m2. Change User Credentials\e[0m"
-        echo -e "\e[33m3. Bypass Login\e[0m"
-        echo -e "\e[33m4. Exit\e[0m"
-        read -p $'\n\e[32mSelect an option (1-4): \e[0m' option
-
-        case \$option in
-            1) echo -e "\e[31m[!] Stored User Credentials:\e[0m" && cat "$cred_file";;
-            2) 
-                read -p $'\e[33mEnter New Username: \e[0m' new_user
-                read -s -p $'\e[33mEnter New Password: \e[0m' new_pass
-                echo "\$new_user:\$new_pass" > "$cred_file"
-                echo -e "\n\e[32m✔ User Credentials Updated Successfully!\e[0m";;
-            3) 
-                echo -e "\e[32m✔ Bypassing Login...\e[0m"
-                sleep 2
-                break;;
-            4) exit;;
-            *) echo -e "\e[31mInvalid Option! Try Again.\e[0m";;
-        esac
-    done
-fi
-
-# Secret Protection
-if [[ "\$user" == "$secret_user" && "\$pass" == "$secret_pass" ]]; then
-    echo -e "\e[1;31m🚨 Warning! Unauthorized Attempt to Modify System Files Detected! 🚨\e[0m"
+# Check if the username and password match
+if [[ $pass == $password && $user == $username ]]; then
     sleep 3
-    exit
-fi
-
-# Load stored user credentials
-stored_user=\$(cut -d: -f1 "$cred_file")
-stored_pass=\$(cut -d: -f2 "$cred_file")
-
-# User Login Check
-if [[ "\$user" == "\$stored_user" && "\$pass" == "\$stored_pass" ]]; then
-    sleep 2
     clear
-    cd \$HOME
+    cd $HOME
     cd TermuX-Phantom
     python sound_effect.py
     clear
-    echo -e "\e[32m✔ Login Successful! Welcome, \e[33m\$stored_user\e[32m!\e[0m"
-    echo -e "\e[36m──────────────────────────────────────\e[0m"
+    cd $HOME 
+    echo -e "\033[1m\033[33m
+    ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗ 
+    ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+    ███████║███████║██║     █████╔╝ █████╗  ██████╔╝
+    ██╔══██║██╔══██║██║     ██╔═██╗ ██╔══╝  ██╔══██╗
+    ██║  ██║██║  ██║╚██████╗██║  ██╗███████╗██║  ██║
+    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+    "
+    echo -e  "     \e[1m\e[32m▂▃▄▅▆▇▓▒░ \033[1mCoded By \e[33mBYTEPHANTOM \e[1m\e[32m░▒▓▇▆▅▄▃▂"
+    cd $HOME
+    echo -e "   \033[1m\033[33m]\033[31m──────────────────────────────────────\033[33m["
+    echo 
+    PS1='\033[1m\[\e[32m\]\033[1m┌─[\[\e[37m\]\T\[\e[32m\]\033[1m]─────\033[1m\e[1;98m\[[\033[1m\033[37m$names\033[32m]\033[1m\e[0;32m\033[1m───[\033[38;5;209m\#\033[32m]\n|\n\033[1m\e[0;32m\033[1m└─[\[\e[32m\]\e[1;33m\W\[\e[1m\033[32m]\033[1m────►\e[1;36m\033[1m '
+    
+    # Optional commands for a better shell experience
+    << comment
+    shopt -s autocd
+    shopt -s cdspell
+    shopt -s checkhash
+    shopt -s checkwinsize
+    shopt -s compat31
+    shopt -s compat32
+    shopt -s compat40
+    shopt -s compat41
+    shopt -s no_empty_cmd_completion
+    shopt -s histverify
+    shopt -s histappend
+    shopt -s dirspell
+    shopt -s direxpand
+    shopt -s compat43
+    shopt -s compat32
+    shopt -s lithist
+    comment
+
 else
-    echo -e "\e[1;31m❌ Incorrect Username or Password!\e[0m"
-    sleep 2
-    exit
+    echo ""
+    echo -e "\e[1;31m  You Entered wrong Details! \e[0m"
+    sleep 1
+    cmatrix -L
 fi
 
-# Fancy Shell Prompt
-PS1='\[\e[32m\]\u\[\e[33m\]@\[\e[36m\]\h\[\e[31m\] ~ \[\e[35m\]\W\[\e[0m\]\$ '
-
+# Trap and reset shell
+trap 2
 LOGIN
-
-echo -e "\n\033[1m\033[32m Your Termux is Ready! Please Exit and Login Again. \e[0m"
+echo
+echo
+echo -e "\033[1m\e[1;32m Your Termux is \033[33mReady \n       So please \033[31mExit \033[37mand \033[32mLogin.\e[0m"
+echo
+echo
