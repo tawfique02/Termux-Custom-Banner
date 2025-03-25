@@ -1,6 +1,6 @@
-#!/usr/bin/bash 
+
 #Only use it for ethical hacking and educational purposes.
-bash banner.sh
+bash login.sh
 echo
 
 read -p $'\e[1;32m  Enter \033[33mUsername \033[37mfor \033[32mLogin:\e[0m ' username                
