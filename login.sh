@@ -1,5 +1,5 @@
 #!/usr/bin/bash 
-
+#Only use it for ethical hacking and educational purposes.
 bash banner.sh
 echo
 
