@@ -34,4 +34,4 @@ def test_sql_injection(url):
 # Test the function
 url_to_test = 'http://example.com/vulnerable_page'
 test_sql_injection(url_to_test)
-print("This script is developed by Md Tawfique Elahey")"
+print("This script is developed by Md Tawfique Elahey")
