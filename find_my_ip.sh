@@ -2,6 +2,7 @@ get_ip_address() {
     echo "Finding IP address..."
 
     # Find external (public) IP using a public API (for external network)
+    # This script is for educational purposes only. Don't use it for unethical purposes.
     external_ip=$(curl -s ifconfig.me)
     if [ -z "$external_ip" ]; then
         external_ip="Unable to retrieve external IP."
