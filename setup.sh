@@ -45,7 +45,3 @@ cp login.sh $PREFIX/etc
 read -p "Do you want to update the repository now? (y/n): " choice
 if [ "$choice" = "y" ]; then
     update_repository
-fi
-
-# Run login script
-bash login.sh
