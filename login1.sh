@@ -1,21 +1,30 @@
 #!/bin/bash
 
-# User authentication credentials (Replace with a secure method if needed)
+# Set a default username (you can change this)
 username="yourUsername"
-password="yourPassword"
 
 # Start of the login process
 clear
 echo -e "\e[1;32mWelcome to the Login Script!\e[0m"
 echo -e "\n"
 
-# Request for Username and Password
+# Prompt for the password to set (you can enter your desired password here)
+read -s -p $'\e[1;32m  Enter your password to set:\e[0m ' password
+echo
+
+# Store password securely (for educational purposes - consider a secure method in real use)
+password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+
+# Request for Username and Password during login
 read -p $'\e[1;32m  Enter \033[33mUsername \033[37mfor \033[32mLogin:\e[0m ' input_username
 read -s -p $'\e[1;32m  Enter \033[33mPassword \033[37mfor \033[32mLogin:\e[0m ' input_password
 echo
 
-# Validate credentials
-if [[ "$input_username" == "$username" && "$input_password" == "$password" ]]; then
+# Hash the input password
+input_password_hash=$(echo -n "$input_password" | sha256sum | awk '{print $1}')
+
+# Validate credentials (check username and password hash)
+if [[ "$input_username" == "$username" && "$input_password_hash" == "$password_hash" ]]; then
     echo -e "\n\e[1;32mLogin successful!\e[0m"
     sleep 2
     clear
